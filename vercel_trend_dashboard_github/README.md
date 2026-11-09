@@ -1,12 +1,13 @@
 # Emerging Technology Atlas — read-only Vercel export
 
-Primary snapshot: `leaf_minsample4_07` (`run-20261109-171312-312473`)
+Primary snapshot: `leaf_minsample4_07_2` (`run-20261109-180432-632522`)
 
 Comparison snapshot: `eom_minsample8_07` (`run-20261109-113100-111082`)
 
 Available saved runs:
-- `leaf_minsample4_07` (`run-20261109-171312-312473`)
+- `leaf_minsample4_07_2` (`run-20261109-180432-632522`)
 - `eom_minsample8_07` (`run-20261109-113100-111082`)
+- `leaf_minsample4_07` (`run-20261109-171312-312473`)
 - `leaf_minsample6_07` (`run-20261109-164924-644470`)
 - `leaf_minsample7_07_3` (`run-20261109-163602-374875`)
 - `leaf_minsample8_07_2` (`run-20261109-115127-602704`)

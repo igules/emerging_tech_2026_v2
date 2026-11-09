@@ -102,7 +102,7 @@ function renderSource(source) {
       <span class="source-title">${esc(source.title)}</span></summary>
     <div class="source-contents">
       ${safeURL ? `<a href="${esc(safeURL)}" target="_blank" rel="noopener noreferrer">원문 열기 ↗</a>` : `<span class="note">원문 URL 없음</span>`}
-      ${claims.map(c => `<div class="claim-row"><strong>${esc(c.name)}</strong><small>${esc(c.leaf_id)}</small><p>${esc(c.evidence)}</p></div>`).join("")}
+      ${claims.map(c => `<div class="claim-row"><strong>${esc(c.name)}</strong><small>${esc(c.leaf_id)}</small>${source.source_type === "workshop" ? `<p><b>기술 배경</b> ${esc(c.background || "한국어 배경 없음")}</p>` : `<p>${esc(c.evidence)}</p>`}</div>`).join("")}
     </div>
   </details>`;
 }
