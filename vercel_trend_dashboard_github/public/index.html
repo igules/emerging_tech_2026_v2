@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emerging Technology Atlas · 2027</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✳</span><span>EMERGING TECHNOLOGY <b>ATLAS</b></span></div>
+    <nav class="site-nav" aria-label="대시보드 화면">
+      <button id="nav-family" type="button" class="nav-active">기술군 탐색</button>
+      <button id="nav-leaf-map" type="button">군집도</button>
+      <button id="nav-synthesis" type="button" hidden>군집 종합 실험실</button>
+      <button id="nav-compare" type="button">실험 비교</button>
+      <button id="nav-transcript" type="button" hidden>추출 결과</button>
+    </nav>
+    <div class="top-meta">2027 RESEARCH EDITION <span class="meta-dot">●</span> SAVED RESULTS</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">2027 TECHNOLOGY LANDSCAPE</div>
+      <h1>Emerging Technologies<br><em>vol.2</em></h1>
+      <p>최종 기술군에서 원문 자료까지 탐색합니다. 기술군 설명은 분석 모델의 종합 결과이며, 원문 근거와 함께 검토해 주세요.</p>
+      <div class="stats" id="stats" aria-live="polite"></div>
+    </section>
+
+    <section class="run-toolbar" id="run-toolbar" aria-label="실행 선택">
+      <label for="run-select">탐색할 실행</label><select id="run-select"></select>
+      <span id="run-meta" class="run-meta"></span>
+    </section>
+
+    <section class="explorer" aria-label="기술군 탐색기">
+      <aside class="sidebar">
+        <div class="section-kicker">EXPLORE THE MAP</div>
+        <h2>기술군</h2>
+        <label class="search-wrap">
+          <span class="sr-only">기술군 검색</span>
+          <span class="search-icon">⌕</span>
+          <input id="group-search" type="search" placeholder="기술명·설명 검색" autocomplete="off">
+        </label>
+        <div class="list-caption"><span id="group-count">불러오는 중</span><span>CLAIMS ↓</span></div>
+        <div class="group-list" id="group-list" role="listbox" aria-label="기술군"></div>
+      </aside>
+
+      <section class="main-panel" id="main-panel" aria-live="polite">
+        <div class="empty-state">결과를 불러오는 중입니다…</div>
+      </section>
+    </section>
+
+    <section class="evidence-landscape" id="evidence-landscape" aria-label="학술·산업 근거 지형">
+      <div class="section-kicker">EVIDENCE LANDSCAPE</div>
+      <h2>최종 기술군의 학술·산업 근거 지형</h2>
+      <p>최종 기술군별 서로 다른 자료 수를 비교합니다. 자료 수는 기술 중요도나 성숙도 점수가 아닙니다.</p>
+      <div id="evidence-landscape-chart" aria-live="polite"></div>
+    </section>
+
+    <section class="leaf-map-page" id="leaf-map-page" hidden aria-label="1차 클러스터링 군집도">
+      <div class="map-page-head">
+        <div><div class="section-kicker">TECHNOLOGY CLUSTERING</div><h2>기술군 군집도</h2>
+          <p id="map-caption">원 기술명 임베딩을 2차원으로 투영한 탐색 지도입니다. 실제 군집 판정은 50차원에서 이루어졌으므로, 화면상 점 사이 거리는 정확한 유사도가 아닙니다.</p></div>
+        <div class="map-counts" id="map-counts" aria-live="polite"></div>
+      </div>
+      <div class="map-layout">
+        <div class="map-plot-wrap">
+          <div class="map-legend"><span><i class="legend-dot retained"></i>군집 포함</span><span><i class="legend-dot noise"></i>미배정 기술명</span></div>
+          <canvas id="cluster-map" height="560" role="img" aria-label="1차 세부기술군의 2차원 투영 지도"></canvas>
+          <div class="map-tooltip" id="map-tooltip" hidden></div>
+          <div class="map-axis-note" id="map-axis-note">PCA 2D DISPLAY ONLY · CLICK A CLUSTER TO EXPLORE</div>
+        </div>
+        <aside class="map-explore">
+          <h3>세부기술 찾기</h3>
+          <input id="leaf-search" type="search" placeholder="세부기술·원 기술명 검색" aria-label="1차 군집 검색">
+          <select id="leaf-status" aria-label="기존 실행의 2차 유지 여부 필터"><option value="all">전체 후보</option><option value="retained">2차 유지</option><option value="excluded">2차 제외</option></select>
+          <div class="map-list-count" id="map-list-count"></div>
+          <div class="map-leaf-list" id="map-leaf-list"></div>
+        </aside>
+      </div>
+      <section class="map-detail" id="map-detail" aria-live="polite"></section>
+    </section>
+
+    <section class="synthesis-page" id="synthesis-page" hidden aria-label="군집 종합 프롬프트 실험실">
+      <div class="section-kicker">LLM SYNTHESIS LAB</div>
+      <h2>군집 종합 실험실</h2>
+      <p>선택한 1차 군집의 원본 claim은 그대로 두고 프롬프트만 바꿔 이름·정의·근거 요약을 시험합니다. 같은 입력으로 비교하려면 위에서 저장된 실행을 선택하세요. 실험 결과는 별도로 저장되며 정규화 결과에 자동 반영되지 않습니다.</p>
+      <div class="lab-controls">
+        <label>실험할 군집 <select id="lab-group"></select></label>
+        <span id="lab-group-meta" class="lab-muted"></span>
+      </div>
+      <div class="lab-overview">
+        <article class="lab-card"><h3>현재 군집 종합 결과</h3><div id="lab-baseline" class="lab-result"></div></article>
+        <article class="lab-card"><h3>이번 프롬프트의 결과</h3><div id="lab-result" class="lab-result lab-muted">실행 후 결과가 여기에 표시됩니다.</div></article>
+      </div>
+      <details class="lab-input-details"><summary>LLM 입력 claim 확인 <span id="lab-input-count"></span></summary><div id="lab-input" class="lab-input"></div></details>
+      <div class="lab-editor">
+        <div class="lab-editor-head"><h3>세부기술 종합 프롬프트</h3><button id="lab-reset" type="button" class="lab-secondary">기본 프롬프트로 되돌리기</button></div>
+        <p><code>{groups}</code> 자리에 선택한 군집의 원본 claim JSON이 들어갑니다. 이름뿐 아니라 정의·근거·부상 배경을 함께 실험할 수 있습니다.</p>
+        <textarea id="lab-prompt" spellcheck="false" aria-label="세부기술 종합 프롬프트"></textarea>
+        <details id="lab-reduce-wrap"><summary>큰 군집용 최종 종합 프롬프트</summary><p>입력이 긴 군집은 여러 부분으로 나눠 종합한 뒤 이 프롬프트로 다시 합칩니다. <code>{group_id}</code>, <code>{member_names}</code>, <code>{partials}</code>를 유지하세요.</p><textarea id="lab-reduce-prompt" spellcheck="false" aria-label="큰 군집 최종 종합 프롬프트"></textarea></details>
+        <div class="lab-actions"><button id="lab-run" type="button">이 프롬프트로 실행</button><span id="lab-status" role="status"></span></div>
+      </div>
+      <div class="lab-history"><h3>이 군집의 이전 시도</h3><div id="lab-history-list" class="lab-history-list"></div></div>
+    </section>
+
+    <section class="compare-page" id="compare-page" hidden aria-label="클러스터링 실험 비교">
+      <div class="section-kicker">RUN COMPARISON</div>
+      <h2>파라미터 변화와 기술군 이동</h2>
+      <p>두 실행의 입력 claims가 같을 때만 이동을 파라미터 차이로 해석할 수 있습니다.</p>
+      <div class="compare-controls"><label>실행 A <select id="compare-a"></select></label><label>실행 B <select id="compare-b"></select></label></div>
+      <div id="compare-content" aria-live="polite"></div>
+    </section>
+
+    <section class="transcript-page" id="transcript-page" hidden aria-label="YouTube 추출 결과">
+      <div class="section-kicker">YOUTUBE TRANSCRIPT EXTRACTION</div>
+      <h2>dp_1.txt 추출 결과</h2>
+      <p>청크별 기술 후보의 배경과 근거를 함께 확인합니다. 후보 간 중복이 있으며, evidence는 원문 대조 전까지 직접 인용으로 사용하지 마세요.</p>
+      <input id="transcript-search" type="search" placeholder="기술명·배경·근거 검색" aria-label="추출 결과 검색">
+      <div id="transcript-count" class="source-count"></div>
+      <div id="transcript-list" class="transcript-list" aria-live="polite"></div>
+    </section>
+
+    <footer>TECHNOLOGY ATLAS · 로컬 분석 결과 기반 · claim 건수는 기술 중요도의 순위가 아닙니다.</footer>
+  </main>
+</body>
+</html>
