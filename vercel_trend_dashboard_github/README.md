@@ -1,12 +1,13 @@
 # Emerging Technology Atlas — read-only Vercel export
 
-Primary snapshot: `leaf_minsample7_07_3` (`run-20261109-163602-374875`)
+Primary snapshot: `leaf_minsample6_07` (`run-20261109-164924-644470`)
 
 Comparison snapshot: `eom_minsample8_07` (`run-20261109-113100-111082`)
 
 Available saved runs:
-- `leaf_minsample7_07_3` (`run-20261109-163602-374875`)
+- `leaf_minsample6_07` (`run-20261109-164924-644470`)
 - `eom_minsample8_07` (`run-20261109-113100-111082`)
+- `leaf_minsample7_07_3` (`run-20261109-163602-374875`)
 - `leaf_minsample8_07_2` (`run-20261109-115127-602704`)
 
 This folder contains precomputed dashboard JSON and browser assets only. The synthesis lab and transcript page are hidden because they need a live backend. The included evidence text will be visible to people who can access the deployed site.
